@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: api-gateway
+
+springdoc:
+  api-docs:
+    groups-config:
+      - group: user-service
+        paths-to-match: /user-service/**
+        url: http://localhost:8081/api-docs
+      - group: order-service
+        paths-to-match: /order-service/**
+        url: http://localhost:8082/api-docs
+  swagger-ui:
+    path: /docs

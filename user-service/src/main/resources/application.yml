@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:mysql://${USERHOST}:3306/${USERDB}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${USERUSERNAME}
+    password: ${USERPASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+  security:
+    enabled: true
+jwt:
+  secret: ${JWTSECRET}
+  expiration: ${JWTEXPIRE}
+
+server:
+  port: 8081
+
+springdoc:
+  swagger-ui:
+    path: /docs
