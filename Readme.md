@@ -7,7 +7,7 @@
 2. 모든 기능들이 MSA에서의 유연한 확장을 위해 Kafka로 통신하고 있습니다.
 3. Token Blacklist, Search 시 속도증강을 위한 Redis를 사용합니다.
 4. API-gateway에 회복탄력성을 추가함으로서, 리소스 낭비를 줄였습니다.
-5. 모든 배포는 docker, docker-compose를 통해서 진행중입니다.
+5. 모든 배포는 dockerfile, docker-compose를 통해서 진행중입니다.
 - 혹시 모를 Port 등 노출 우려가 있어 코드는 gitignore를 통해 관리되고 있습니다.
 
 ## 그 외 특징

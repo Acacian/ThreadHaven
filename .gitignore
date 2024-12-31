@@ -1,4 +1,4 @@
 # 모든 env, docker compose 등은 노출 금지
 .env
 docker-compose.yml
-docker
+dockerfile
