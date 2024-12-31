@@ -1,2 +1,3 @@
-# 모든 env는 노출 금지
+# 모든 env, docker compose 등은 노출 금지
 .env
+.docker-compose.yml

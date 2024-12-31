@@ -17,3 +17,14 @@ spring:
 
 server:
   port: ${USER_SERVICE_PORT}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
