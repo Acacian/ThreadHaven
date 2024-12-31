@@ -17,6 +17,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    // 유저 인증
+    @PostMapping("/authenticate")
+    public ResponseEntity<Boolean> authenticate(@RequestParam String username, @RequestParam String password) {
+        boolean isAuthenticated = userService.findByUsernameAndPassword(username, password).isPresent();
+        return ResponseEntity.ok(isAuthenticated);
+    }
+
     // 모든 유저 조회
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers() {
@@ -28,7 +35,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
         UserDto user = userService.getUserById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id " + id));
+                .orElseThrow(() -> new RuntimeException("User not found"));
         return ResponseEntity.ok(user);
     }
 
@@ -43,7 +50,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @Valid @RequestBody UserDto updatedUserDto) {
         UserDto updatedUser = userService.updateUser(id, updatedUserDto)
-                .orElseThrow(() -> new RuntimeException("User not found with id " + id));
+                .orElseThrow(() -> new RuntimeException("User not found"));
         return ResponseEntity.ok(updatedUser);
     }
 

@@ -16,8 +16,8 @@ public class UserServiceApplication {
         System.setProperty("USERDB", dotenv.get("USERDB"));
         System.setProperty("USERUSERNAME", dotenv.get("USERUSERNAME"));
         System.setProperty("USERPASSWORD", dotenv.get("USERPASSWORD"));
-        System.setProperty("JWTSECRET", dotenv.get("JWTSECRET"));
-        System.setProperty("JWTEXPIRE", dotenv.get("JWTEXPIRE"));
+        System.setProperty("USER_SERVICE_PORT", dotenv.get("USER_SERVICE_PORT"));
+        System.setProperty("DBPORT", dotenv.get("DBPORT"));
 
         // Spring 애플리케이션 실행
         SpringApplication.run(UserServiceApplication.class, args);

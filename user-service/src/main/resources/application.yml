@@ -2,7 +2,7 @@ spring:
   application:
     name: user-service
   datasource:
-    url: jdbc:mysql://${USERHOST}:3306/${USERDB}
+    url: jdbc:mysql://${USERHOST}:${DBPORT}/${USERDB}
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${USERUSERNAME}
     password: ${USERPASSWORD}
@@ -14,15 +14,6 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQLDialect
-  security:
-    enabled: true
-jwt:
-  secret: ${JWTSECRET}
-  expiration: ${JWTEXPIRE}
 
 server:
-  port: 8081
-
-springdoc:
-  swagger-ui:
-    path: /docs
+  port: ${USER_SERVICE_PORT}

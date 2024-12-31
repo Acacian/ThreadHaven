@@ -13,6 +13,12 @@ java {
     }
 }
 
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -20,24 +26,26 @@ repositories {
 dependencies {
     // Spring Boot 기본
     implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    // DTO, Entity 변환작업 줄이기
-    implementation 'org.modelmapper:modelmapper:3.1.0'
-    // MySQL JDBC 드라이버
-    runtimeOnly 'mysql:mysql-connector-java:8.0.33'
-    // Spring Data JPA
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    // validation
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    // Spring Security 추가(비밀번호 해싱때문에)
+    // Spring Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    // Lombok 추가
-    compileOnly 'org.projectlombok:lombok:1.18.28'
-    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+    // WebClient (Spring WebFlux)
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    // JWT
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
     // env
     implementation 'io.github.cdimascio:java-dotenv:5.2.2'
+    // validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    // Redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
     // 테스트
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

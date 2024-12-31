@@ -6,6 +6,7 @@ import org.spring.user_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,25 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
+    // DTO -> Entity 변환
+    private UserDto convertToDto(User user) {
+        return modelMapper.map(user, UserDto.class);
+    }
+
+    // Entity -> DTO 변환
+    private User convertToEntity(UserDto userDto) {
+        return modelMapper.map(userDto, User.class);
+    }
+
+    // 유저 인증
+    public Optional<User> findByUsernameAndPassword(String username, String password) {
+        return userRepository.findByUsername(username)
+                .filter(user -> passwordEncoder.matches(password, user.getPassword())); // 암호화된 비밀번호 비교
+    }
+
     // 모든 유저 조회
     public List<UserDto> getAllUsers() {
         return userRepository.findAll().stream()
@@ -33,12 +53,12 @@ public class UserService {
                 .map(this::convertToDto); // 엔티티를 DTO로 변환
     }
 
-    // 유저 생성
+    // 유저 생성 시 비밀번호 암호화
     public UserDto createUser(UserDto userDto) {
-        User user = convertToEntity(userDto); // DTO를 엔티티로 변환
-        user.setPassword(passwordEncoder.encode(user.getPassword())); // 비밀번호 암호화
+        User user = convertToEntity(userDto);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         User savedUser = userRepository.save(user);
-        return convertToDto(savedUser); // 저장 후 엔티티를 DTO로 변환
+        return convertToDto(savedUser);
     }
 
     // 유저 업데이트
@@ -46,35 +66,15 @@ public class UserService {
         return userRepository.findById(id).map(user -> {
             user.setUsername(updatedUserDto.getUsername());
             user.setEmail(updatedUserDto.getEmail());
-            user.setPassword(passwordEncoder.encode(updatedUserDto.getPassword()));
+            user.setPassword(passwordEncoder.encode(updatedUserDto.getPassword())); // 암호화된 비밀번호 설정
             user.setRole(updatedUserDto.getRole());
             User savedUser = userRepository.save(user);
-            return convertToDto(savedUser); // 업데이트 후 엔티티를 DTO로 변환
+            return convertToDto(savedUser);
         });
     }
 
     // 유저 삭제
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
-    }
-
-    // 엔티티를 DTO로 변환
-    private UserDto convertToDto(User user) {
-        UserDto dto = new UserDto();
-        dto.setUsername(user.getUsername());
-        dto.setEmail(user.getEmail());
-        dto.setRole(user.getRole());
-        // password는 보안상 클라이언트로 보내지 않음
-        return dto;
-    }
-
-    // DTO를 엔티티로 변환
-    private User convertToEntity(UserDto userDto) {
-        User user = new User();
-        user.setUsername(userDto.getUsername());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
-        user.setRole(userDto.getRole());
-        return user;
     }
 }
