@@ -30,7 +30,7 @@ dependencies {
     // validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     // Swagger 통합을 위해 추가
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-core:2.2.0'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
     // Spring Security 추가(비밀번호 해싱때문에)
     implementation 'org.springframework.boot:spring-boot-starter-security'
     // Lombok 추가
@@ -45,6 +45,12 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 }
 
+// Spring Cloud BOM 추가
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2023.0.3'
+    }
+}
 tasks.named('test') {
     useJUnitPlatform()
 }

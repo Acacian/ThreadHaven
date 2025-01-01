@@ -18,8 +18,27 @@ repositories {
 }
 
 dependencies {
+    // Spring Boot 기본
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    // env
+    implementation 'io.github.cdimascio:java-dotenv:5.2.2'
+
+    // validatioin
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+
+    // Test 의존성 추가
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+}
+
+// Spring Cloud BOM 추가 (2023.x로 변경)
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2023.0.3'
+    }
 }
 
 tasks.named('test') {

@@ -18,6 +18,8 @@ public class UserServiceApplication {
         System.setProperty("USERPASSWORD", dotenv.get("USERPASSWORD"));
         System.setProperty("USER_SERVICE_PORT", dotenv.get("USER_SERVICE_PORT"));
         System.setProperty("DBPORT", dotenv.get("DBPORT"));
+        System.setProperty("DBPORT_HOST", dotenv.get("DBPORT_HOST"));
+        System.setProperty("USER_SERVICE_PORT", dotenv.get("USER_SERVICE_PORT"));
 
         // Spring 애플리케이션 실행
         SpringApplication.run(UserServiceApplication.class, args);

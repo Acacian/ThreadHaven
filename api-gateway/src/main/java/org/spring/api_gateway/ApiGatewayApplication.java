@@ -14,7 +14,7 @@ public class ApiGatewayApplication {
         // 환경 변수 설정
         System.setProperty("Auth_Path", dotenv.get("Auth_Path"));
         System.setProperty("User_Path", dotenv.get("User_Path"));
-        System.setProperty("Port", dotenv.get("Port"));
+        System.setProperty("API_GATEWAY_Port", dotenv.get("API_GATEWAY_Port"));
 		
 		SpringApplication.run(ApiGatewayApplication.class, args);
 	}

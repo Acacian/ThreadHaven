@@ -1,5 +1,5 @@
 server:
-  port: ${Port}
+  port: ${API_GATEWAY_Port}
 
 eureka:
   client:
